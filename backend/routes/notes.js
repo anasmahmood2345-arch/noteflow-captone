@@ -43,7 +43,9 @@ router.post("/", async (req, res) => {
         if (!req.body.title?.trim() || !req.body.content?.trim()) {
             return res.status(400).json({
                 message: "Title and content are required"
-            }); 
+            });
+        }
+
         const note = new Note({
             title: req.body.title,
             content: req.body.content,
@@ -64,9 +66,11 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
     try {
         if (!req.body.title?.trim() || !req.body.content?.trim()) {
-         return res.status(400).json({
-              message: "Title and content are required"
-         });
+            return res.status(400).json({
+                message: "Title and content are required"
+            });
+        }
+
         const updatedNote = await Note.findOneAndUpdate(
             {
                 _id: req.params.id,
@@ -120,7 +124,7 @@ router.delete("/:id", async (req, res) => {
     }
 });
 
-
+// PATCH - partially update a note
 router.patch("/:id", async (req, res) => {
     try {
         const updates = {};
@@ -176,8 +180,6 @@ router.patch("/:id", async (req, res) => {
         });
     }
 });
-
-
 
 module.exports = router;
 
